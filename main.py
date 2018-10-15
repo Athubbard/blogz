@@ -33,5 +33,20 @@ def post():
         db.session.commit()
 
     return render_template('newpost.html')
-#    blog = Blog.query.all()
+
+@app.route('/blog') 
+def blog():
+    blogs = Blog.query.all()
+
+    if request.args:
+        blog_id = request.args.get('id')
+        blog = Blog.query.get(blog_id)
+
+        return render_template('singleblogpost.html', blog=blog)
+
+    else:
+        blogs = Blog.query.all()
+
+    return render_template('blog.html', title="Build a Blog", blogs=blogs)
+
 app.run()
