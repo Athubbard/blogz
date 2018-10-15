@@ -25,6 +25,7 @@ def index():
 
 @app.route('/newpost', methods=['GET', 'POST'])
 def post():
+      
     if request.method == 'POST':
         blog_name = request.form['title']
         blog_body = request.form['body']
@@ -32,6 +33,9 @@ def post():
         db.session.add(new_blog)
         db.session.commit()
 
+
+    
+       
     return render_template('newpost.html')
 
 @app.route('/blog') 
