@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://build-a-blog:buildablog@localhost:8889/build-a-blog'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://blogz:blogz@localhost:8889/blogz'
 app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 
@@ -19,6 +19,12 @@ class Blog(db.Model):
         self.title = title
         self.body = body
 
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(120))
+    password = db.Column(db.String(120))
+    blogs = db.relationship('Blog', backref='author')
 @app.route('/')
 def index():
     return render_template('base.html')
@@ -53,4 +59,13 @@ def blog():
 
     return render_template('blog.html', title="Build a Blog", blogs=blogs)
 
-app.run()
+
+
+@app.route('/signup')
+def signup():
+    
+
+if __name__ == '__main__':
+
+
+                app.run()
