@@ -34,42 +34,7 @@ class User(db.Model):
 
 @app.route('/')
 def index():
-    return render_template('base.html')
-
-@app.route('/newpost', methods=['GET', 'POST'])
-def post():
-
-        owner = User.query.filter_by(email=session['email']).first() 
-
-        if request.method == 'POST':
-            blog_name = request.form['title']
-            blog_body = request.form['body']
-            new_blog = Blog(blog_name, blog_body, owner) 
-            db.session.add(new_blog)
-            db.session.commit()
-
-
-        #blogs= Blog.query.filter_by(completed=False,owner=owner).all()
-       
-        return render_template('newpost.html')
-
-@app.route('/blog') 
-def blog():
-    blogs = Blog.query.all()
-
-    if request.args:
-        blog_id = request.args.get('id')
-        blog = Blog.query.get(blog_id)
-
-        return render_template('singleblogpost.html', blog=blog)
-
-    else:
-        blogs = Blog.query.all()
-
-    return render_template('blog.html', title="Build a Blog", blogs=blogs)
-
-
-
+    return render_template('login.html')
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method =='POST':
@@ -106,6 +71,42 @@ def signup():
             return "<h1>Duplicate user</h1>"
 
     return render_template('signup.html') 
+
+@app.route('/newpost', methods=['GET', 'POST'])
+def post():
+
+        #owner = User.query.filter_by(username=session['username']).first() 
+
+        if request.method == 'POST':
+            blog_name = request.form['title']
+            blog_body = request.form['body']
+            new_blog = Blog(blog_name, blog_body, owner) 
+            db.session.add(new_blog)
+            db.session.commit()
+
+            return render_template('newpost.html')
+        
+       
+        
+
+@app.route('/blog') 
+def blog():
+    blogs = Blog.query.all()
+
+    if request.args:
+        blog_id = request.args.get('id')
+        blog = Blog.query.get(blog_id)
+
+        return render_template('singleblogpost.html', blog=blog)
+
+    else:
+        blogs = Blog.query.all()
+
+    return render_template('blog.html', title="Build a Blog", blogs=blogs)
+
+
+
+
 
 
 if __name__ == '__main__':
