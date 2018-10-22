@@ -24,13 +24,22 @@ class Blog(db.Model):
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120)), unique=True)
     username = db.Column(db.String(120), unique=True)
     password = db.Column(db.String(120))
     blogs = db.relationship('Blog', backref='owner')
 
-    def __init__(self, username, password):
+    def __init__(self, username, password, email):
         self.username = username
         self.password = password
+        self.email = email
+
+@app.before_request
+def require_login():
+    allowed_routes = ['login','signup']
+    if request.endpoint not in allowed_routes and 'email' not in session:
+        return redirect('/login')
+
 
 @app.route('/')
 def index():
@@ -112,4 +121,4 @@ def blog():
 if __name__ == '__main__':
 
 
-             app.run()
+    app.run()
