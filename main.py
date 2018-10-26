@@ -45,20 +45,21 @@ def require_login():
 
 @app.route('/')
 def index():
-    return render_template('login.html')
+    return render_template('login.html', )
+
 @app.route('/login', methods=['POST', 'GET'])
 def login():
-    if request.method =='Post':
-        email = request.form['email']
+    if request.method =='POST':
+        username = request.form['username']
         password = request.form['password']
-        user = User.query.filter_by(email=email).first()
+        user = User.query.filter_by(username=username).first()
         if user and user.password == password:
-            session['email'] = email
+            session['username'] = username
             flash("Logged in")
             return redirect('/newpost')
         else:
-            flash('User password incorrect, or user does not exist, error')
-            return redirect ('/login')
+            flash("User password incorrect, or user does not exist, error")
+            return ('/')
     
     return render_template('login.html')
 
@@ -120,7 +121,7 @@ def blog():
 @app.route('/logout')
 def logout():
     del session['username']
-    return redirect('/login')
+    return redirect('/')
 
 
 if __name__ == '__main__':

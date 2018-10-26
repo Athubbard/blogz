@@ -7,11 +7,19 @@
             }
         </style>
     </head>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+    <ul>
+    {% for category, message in messages %}
+    <li class= "{{category}}"> {{message}}</li>
+    {% endfor %}
+    </ul>
+    {% endwith %}
 <body>
     <div id=Navigation>
         <nav>
         <a href = "/blog">Main Blog Listings</a>
         <a href = "/newpost">New Blog Entry</a>
+        <a href='/logout'>log out</a>
     </nav>
     </div>
 

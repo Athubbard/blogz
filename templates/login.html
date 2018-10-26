@@ -7,6 +7,12 @@
 <form action="/login" method="post">
     <table>
         <tr>
+            <td><label for="username">Username</label></td>
+            <td>
+                <input name="username" type="username" value="{{ username }}">
+            </td>
+        </tr>
+        <tr>
             <td><label for="email">Email</label></td>
             <td>
                 <input name="email" type="email" value="{{ email }}">
