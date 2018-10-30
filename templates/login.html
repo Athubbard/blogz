@@ -3,6 +3,8 @@
 {% block content %}
 <h1>Log in to Blogz!</h1>
 
+
+
 <p>If you don't have an account, you may <a href="/signup">Signup</a> for one</p>
 <form action="/login" method="post">
     <table>
@@ -27,4 +29,13 @@
     </table>
     <input type="submit" value="Login">
 </form>
+
+{% with messages = get_flashed_messages(with_categories=True) %}
+<ul>
+{% for category, message in messages %}
+<li class= "{{category}}"> {{message}}</li>
+{% endfor %}
+</ul>
+{% endwith %}
+
 {% endblock %}

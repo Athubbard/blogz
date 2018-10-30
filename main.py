@@ -59,7 +59,7 @@ def login():
             return redirect('/newpost')
         else:
             flash("User password incorrect, or user does not exist, error")
-            return ('/')
+            return redirect ('/blog')
     
     return render_template('login.html')
 
@@ -82,7 +82,7 @@ def signup():
             return redirect ('/newpost')
         else:
             # TODO - user better response messaging
-            return "<h1>Duplicate user</h1>"
+            return "<h1>Duplicate user!Please create new user.</h1>"
 
     return render_template('signup.html') 
 
